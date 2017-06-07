@@ -46,15 +46,25 @@ public class WorkflowController {
 		runtime.first.FeedManually(new ActivityItem(input));
 	}
 	
-	// curl http://localhost:8080/testsize?size=100&count=10000
+	// time curl http://localhost:8080/testsize?size=100&count=10000
 	// check http://localhost:8080/hystrix/monitor?stream=http%3A%2F%2Flocalhost%3A8080%2Fhystrix.stream
-	
+	// http://localhost:8080/testsize?size=100000&count=100 -> The server disconnected before a response was received.
+	// http://localhost:8080/testsize?size=1000000&count=1 -> The request included a message larger than the max message size the server will accept.
+	// local build -> works
+	// http://localhost:8080/testsize?size=10000000&count=10 -> 
 	@GetMapping("/testsize")
-	public void testMessage(int size, int count) throws InterruptedException, ExecutionException {
+	public int testMessage(int size, int count) throws InterruptedException, ExecutionException {
 		String content = StringUtils.repeat("*", size);
-		for(int i=0;i<count;i++) {
-			runtime.producer.Send("testSize", content);			
+		int i;
+		for(i=0;i<count;i++) {
+			long startTime = System.nanoTime();
+			runtime.producer.Send("testSize", content);
+			long endTime = System.nanoTime();
+
+			long duration = (endTime - startTime)/1000000;  //divide by 1000000 to get milliseconds.
+			System.out.println("takes " + duration);
 		}
+		return i;
 	}
 	
 	@GetMapping("/feedmany")

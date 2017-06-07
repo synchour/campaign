@@ -2,6 +2,7 @@ docker-compose up -d
 
 docker exec -it campaign_kafka_1 bash
 
+
 root@d68d40857fce:/etc/supervisor/conf.d# cat /usr/bin/start-kafka.sh
 #!/bin/sh
 

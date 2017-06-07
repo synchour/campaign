@@ -1,7 +1,8 @@
 version: '2'
 services:
   kafka:
-    image: spotify/kafka:latest
+    #image: spotify/kafka:latest
+    build: .
     ports:
       - "2181:2181"
       - "9092:9092"

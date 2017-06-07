@@ -26,11 +26,11 @@ public class SendCommand extends HystrixCommand<Long>{
 	
 	@Override
 	protected Long run() throws Exception {
-		System.out.println("Size of content " + content.getBytes().length);
+		//System.out.println("Size of content " + content.getBytes().length);
 		ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topic, content);
 		Future<RecordMetadata> meta = producer.send(rec);
 		RecordMetadata rmeta = meta.get();
-		System.out.println("Success, Offset " + rmeta.offset());
+		//System.out.println("Success, Offset " + rmeta.offset());
 		return rmeta.offset();
 		//return meta.get().timestamp();
 	}
