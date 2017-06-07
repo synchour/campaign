@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -33,6 +35,8 @@ public class WorkflowController {
 	//@Autowired
 	//DocumentDBService docservice;
 	
+	private Log log = LogFactory.getLog(WorkflowController.class);
+	
 	@GetMapping("/init")
 	@HystrixCommand
 	public void init() throws Exception {
@@ -55,6 +59,17 @@ public class WorkflowController {
 		for(int i=0;i<count;i++) {
 			runtime.producer.Send("testSize", content);			
 		}
+	}
+	
+	// curl http://localhost:8080/verify
+	// Sorry this leaks
+	@GetMapping("/verify")
+	public void getAllItemsSummaryFromTopic() {
+		KConsumer c = new KConsumer("testSize", "testSizeGroup", null, null, (s) -> {
+			log.info(" received size " + s.length());
+			});
+		
+		new Thread(c).start();
 	}
 	
 	@GetMapping("/feedmany")

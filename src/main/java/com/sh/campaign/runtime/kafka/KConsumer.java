@@ -123,8 +123,8 @@ public class KConsumer implements Runnable{
             	System.out.println("Commit offset done");
 
                 System.out.printf("%s topic-partitions are assigned to this consumer\n", Arrays.toString(partitions.toArray()));
-                //kafkaConsumer.seekToBeginning(partitions);
-                kafkaConsumer.seekToEnd(partitions);
+                kafkaConsumer.seekToBeginning(partitions);
+                //kafkaConsumer.seekToEnd(partitions);
             	System.out.println("Commit to beginning done");
             }
         });
