@@ -20,22 +20,6 @@ public class CampaignApplicationTests {
 	
 	@Test
 	public void SqlTest() {
-		KafkaOffsetInfo offset = new KafkaOffsetInfo();
-		offset.setTopicName("testTopic");
-		offset.setGroupId("groupId");
-		offset.setOffset(1000);
-		//repo.save(offset);
-		
-		KafkaOffsetInfo offset2 = new KafkaOffsetInfo();
-		offset2.setTopicName("testTopic");
-		offset2.setGroupId("groupId");
-		offset2.setOffset(1001);
-		//repo.save(offset2);
-		
-		List<KafkaOffsetInfo> info = repo.findByTopicName("testTopic");
-		assert info.size() == 1;
-		assert info.get(0).getOffset() == 1001;
-		System.out.println(info.get(0).getOffset());
 	}
 
 }

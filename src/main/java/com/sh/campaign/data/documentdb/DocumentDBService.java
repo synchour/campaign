@@ -30,8 +30,7 @@ public class DocumentDBService {
     DocumentClient documentClient;
     
     public DocumentDBService() {
-    	documentClient = new DocumentClient(END_POINT, MASTER_KEY, ConnectionPolicy.GetDefault(),
-                ConsistencyLevel.Session);
+    	//documentClient = new DocumentClient(END_POINT, MASTER_KEY, ConnectionPolicy.GetDefault(),ConsistencyLevel.Session);
     }
     
     public void createDBCollection(DocumentClient documentClient) throws DocumentClientException {
